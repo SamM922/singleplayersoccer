@@ -11,6 +11,12 @@ class App extends Component {
         compScore: 0
     };
   }
+  onUserGoal = () => {
+    this.setState({userScore: this.state.userScore + 1})
+  }
+  onCompGoal = () => {
+    this.setState({compScore: this.state.compScore + 1})
+  }
   render() {
     return (
       <div className="app">

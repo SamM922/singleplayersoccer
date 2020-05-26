@@ -8,7 +8,7 @@ class Scoreboard extends Component {
   render() {
     return (
       <div>
-      	<div class="flex">
+      	<div className="flex">
           <h1>Player {this.props.userScore}</h1><h1>CPU {this.props.compScore}</h1>
         </div>
       </div>

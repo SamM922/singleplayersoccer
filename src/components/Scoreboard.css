@@ -1,0 +1,11 @@
+h1 {
+	font-family: arial;
+	font-size: 40px;
+	padding-left: 100px;
+	padding-right: 100px;
+}
+.flex {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+}

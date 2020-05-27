@@ -17,26 +17,31 @@ class App extends Component {
         userSkillInt: 0,
         userSkillTackle: 0,
         started: false,
+        startedText: "Please press Start!",
         buttonOne: "Pass",
         buttonTwo: "Dribble",
-        buttonThree: "Shoot"
-        // compSkillShot: 0,
-        // compSkillGK: 0,
-        // compSkillDribble: 0,
-        // compSkillPass: 0,
-        // compSkillInt: 0,
-        // compSkillTackle: 0
+        buttonThree: "Shoot",
+        stage: 1,
+        playerTurn: true,
+        playerTurnDisplay: "It's your turn!"
     };
   }
   start = () => {
     if (this.state.started === false) {
-      this.setState({userSkillShot: Math.floor(Math.random * 50 + 50)});
-      this.setState({userSkillGK: Math.floor(Math.random * 50)});
-      this.setState({userSkillPass: Math.floor(Math.random * 50 + 50)});
-      this.setState({userSkillDribble: Math.floor(Math.random * 50 + 50)});
-      this.setState({userSkillInt: Math.floor(Math.random * 50)});
-      this.setState({userSkillTackle: Math.floor(Math.random * 50)});
+      var shot = Math.floor(Math.random() * 50) + 50;
+      var gk = Math.floor(Math.random() * 50);
+      var pass = Math.floor(Math.random() * 50) + 50;
+      var dribble = Math.floor(Math.random() * 50) + 50;
+      var intercept = Math.floor(Math.random() * 50);
+      var tackle = Math.floor(Math.random() * 50);
+      this.setState({userSkillShot: shot});
+      this.setState({userSkillGK: gk});
+      this.setState({userSkillPass: pass});
+      this.setState({userSkillDribble: dribble});
+      this.setState({userSkillInt: intercept});
+      this.setState({userSkillTackle: tackle});
       this.setState({started: true});
+      this.setState({startedText: "The game has started! Good luck!"});
     } else {
       alert("You have already started the game!");
     }
@@ -49,8 +54,8 @@ class App extends Component {
   }
   render() {
     return (
-      <button id="start" onClick={() => this.start()}>Start the game!</button>
-      <div className="app">
+      <div>
+        <button className="start" onClick={() => this.start()}>Start the game!</button><p className="start">{this.state.startedText}</p>
         <Scoreboard
           userScore={this.state.userScore}
           compScore={this.state.compScore}
@@ -59,6 +64,13 @@ class App extends Component {
           buttonOne={this.state.buttonOne}
           buttonTwo={this.state.buttonTwo}
           buttonThree={this.state.buttonThree}
+          shot={this.state.userSkillShot}
+          gk={this.state.userSkillGK}
+          pass={this.state.userSkillPass}
+          dribble={this.state.userSkillDribble}
+          intercept={this.state.userSkillInt}
+          tackle={this.state.userSkillTackle}
+          turn={this.state.playerTurnDisplay}
         />
       </div>
     );

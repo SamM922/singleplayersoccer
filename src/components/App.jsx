@@ -23,7 +23,7 @@ class App extends Component {
         buttonThree: "Shoot",
         stage: 1,
         playerTurn: true,
-        playerTurnDisplay: "It's your turn!"
+        playerTurnDisplay: "You are attacking!"
     };
   }
   start = () => {

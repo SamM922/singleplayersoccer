@@ -7,10 +7,10 @@ class GameDisplay extends Component {
 		return(
 			<div>
 				<div className="flex">
-					<button>{this.props.buttonOne}</button><button>{this.props.buttonTwo}</button>
+					<button onClick={this.props.buttonOneFunction}>{this.props.buttonOne}</button><button onClick={this.props.buttonTwoFunction}>{this.props.buttonTwo}</button>
 				</div>
 				<div className="flex">
-					<button>{this.props.buttonThree}</button>
+					<button onClick={this.props.buttonThreeFunction}>{this.props.buttonThree}</button>
 				</div>
 				<div className="flex">
 					<h2>Passing: {this.props.pass}</h2><h2>Dribbling: {this.props.dribble}</h2><h2>Shooting: {this.props.shot}</h2>

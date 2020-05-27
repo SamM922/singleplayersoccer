@@ -46,11 +46,136 @@ class App extends Component {
       alert("You have already started the game!");
     }
   }
-  onUserGoal = () => {
-    this.setState({userScore: this.state.userScore + 1})
+  passButton = () => {
+    if (this.state.started === false) {
+      alert("Please press Start first!");
+    } else if (this.state.stage === 2){
+      alert("You can't do that right now!");
+    } else if (this.state.playerTurn === true) {
+      var compSkill = Math.floor(Math.random() * 50);
+      var chance = this.state.userSkillPass - compSkill;
+      var result = Math.floor(Math.random() * 100);
+      if (chance > result){
+        this.setState({stage: 2});
+        alert("You made it past the defenders! Now you can shoot!")
+      } else {
+        this.setState({playerTurn: false});
+        this.setState({playerTurnDisplay: "You are defending!"});
+        this.setState({buttonOne: "Intercept"});
+        this.setState({buttonTwo: "Tackle"});
+        this.setState({buttonThree: "Save"});
+        alert("You lost the ball.");
+      }
+    } else if (this.state.playerTurn === false) {
+      var compSkill = Math.floor(Math.random() * 50) + 50;
+      var chance = compSkill - this.state.userSkillInt;
+      var result = Math.floor(Math.random() * 100);
+      if (chance < result){
+        this.setState({playerTurn: true});
+        this.setState({playerTurnDisplay: "You are attacking!"});
+        this.setState({buttonOne: "Pass"});
+        this.setState({buttonTwo: "Dribble"});
+        this.setState({buttonThree: "Shoot"});
+        alert("You got the ball back!");
+      } else {
+        this.setState({stage: 2});
+        alert("The opponent got past you. Try to make the save!")
+      }
+    } else {
+      alert("Something went wrong. Please reload the page. Error code 1")
+    }
   }
-  onCompGoal = () => {
-    this.setState({compScore: this.state.compScore + 1})
+  dribbleButton = () => {
+    if (this.state.started === false) {
+      alert("Please press Start first!");
+    } else if (this.state.stage === 2){
+      alert("You can't do that right now!");
+    } else if (this.state.playerTurn === true) {
+      var compSkill = Math.floor(Math.random() * 50);
+      var chance = this.state.userSkillDribble - compSkill;
+      var result = Math.floor(Math.random() * 100);
+      if (chance > result){
+        this.setState({stage: 2});
+        alert("You made it past the defenders! Now you can shoot!")
+      } else {
+        this.setState({playerTurn: false});
+        this.setState({playerTurnDisplay: "You are defending!"});
+        this.setState({buttonOne: "Intercept"});
+        this.setState({buttonTwo: "Tackle"});
+        this.setState({buttonThree: "Save"});
+        alert("You lost the ball.");
+      }
+    } else if (this.state.playerTurn === false) {
+      var compSkill = Math.floor(Math.random() * 50) + 50;
+      var chance = compSkill - this.state.userSkillTackle;
+      var result = Math.floor(Math.random() * 100);
+      if (chance <= result){
+        this.setState({playerTurn: true});
+        this.setState({playerTurnDisplay: "You are attacking!"});
+        this.setState({buttonOne: "Pass"});
+        this.setState({buttonTwo: "Dribble"});
+        this.setState({buttonThree: "Shoot"});
+        alert("You got the ball back!");
+      } else {
+        this.setState({stage: 2});
+        alert("The opponent got past you. Try to make the save!")
+      }
+    } else {
+      alert("Something went wrong. Please reload the page. Error code 2")
+    }
+  }
+  shootButton = () => {
+    if (this.state.started === false) {
+      alert("Please press Start first!");
+    } else if (this.state.stage === 1){
+      alert("You can't shoot yet!");
+    } else if (this.state.playerTurn === true) {
+      var compSkill = Math.floor(Math.random() * 50);
+      var chance = this.state.userSkillShot - compSkill;
+      var result = Math.floor(Math.random() * 100);
+      if (chance > result){
+        this.setState({playerTurn: false});
+        this.setState({playerTurnDisplay: "You are defending!"});
+        this.setState({buttonOne: "Intercept"});
+        this.setState({buttonTwo: "Tackle"});
+        this.setState({buttonThree: "Save"});
+        this.setState({stage: 1});
+        this.setState({userScore: this.state.userScore + 1});
+        alert("You scored!");
+      } else {
+        this.setState({playerTurn: false});
+        this.setState({playerTurnDisplay: "You are defending!"});
+        this.setState({buttonOne: "Intercept"});
+        this.setState({buttonTwo: "Tackle"});
+        this.setState({buttonThree: "Save"});
+        this.setState({stage: 1});
+        alert("Your shot was saved.");
+      }
+    } else if (this.state.playerTurn === false) {
+      var compSkill = Math.floor(Math.random() * 50) + 50;
+      var chance = compSkill - this.state.userSkillGK;
+      var result = Math.floor(Math.random() * 100);
+      if (chance <= result) {
+        this.setState({playerTurn: true});
+        this.setState({playerTurnDisplay: "You are attacking!"});
+        this.setState({buttonOne: "Pass"});
+        this.setState({buttonTwo: "Dribble"});
+        this.setState({buttonThree: "Shoot"});
+        this.setState({stage: 1});
+        alert("You made the save!");
+      } else {
+        this.setState({playerTurn: true});
+        this.setState({playerTurnDisplay: "You are attacking!"});
+        this.setState({buttonOne: "Pass"});
+        this.setState({buttonTwo: "Dribble"});
+        this.setState({buttonThree: "Shoot"});
+        this.setState({stage: 1});
+        this.setState({compScore: this.state.compScore + 1});
+        alert("Your opponent scored.");
+      }
+    } else {
+      alert("Something went wrong. Please reload the page. Error code 3")
+    }
   }
   render() {
     return (
@@ -71,6 +196,9 @@ class App extends Component {
           intercept={this.state.userSkillInt}
           tackle={this.state.userSkillTackle}
           turn={this.state.playerTurnDisplay}
+          buttonOneFunction={this.passButton}
+          buttonTwoFunction={this.dribbleButton}
+          buttonThreeFunction={this.shootButton}
         />
       </div>
     );
